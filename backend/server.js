@@ -7,7 +7,7 @@ require('dotenv').config()
 const app = express();
 
 app.use(cors({
-  origin: "https://chatbot-j02cknwkd-prince1372005s-projects.vercel.app", 
+  origin: "https://chatbot-nu-bice.vercel.app", 
   credentials: true 
 }));
 // app.use(cors());

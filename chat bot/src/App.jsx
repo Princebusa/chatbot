@@ -1,5 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 
+// Simple AI avatar SVG component
+function AIBotAvatar() {
+  return (
+    <div className="chatgpt-avatar">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="18" fill="#E6E6F0"/>
+        <ellipse cx="18" cy="15" rx="7" ry="7" fill="#6C3FC5"/>
+        <ellipse cx="18" cy="15" rx="3" ry="3" fill="#fff"/>
+        <rect x="12" y="23" width="12" height="3" rx="1.5" fill="#6C3FC5"/>
+      </svg>
+    </div>
+  );
+}
+
 function App() {
   const [messages, setMessages] = useState([]); // {role: 'user'|'ai', content: string, sql?: string, code?: any[]}
   const [question, setQuestion] = useState("");
@@ -46,21 +60,21 @@ function App() {
   };
 
   return (
-    <div className="chatgpt-app">
-      <h1 className="chatgpt-title">Ask Your Database</h1>
-      <div className="chatgpt-chat-window">
+    <div className="chatgpt-app minimalist">
+      <div className="chatgpt-chat-window minimalist">
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`chatgpt-bubble ${msg.role === "user" ? "user" : "ai"}`}
+            className={`chatgpt-bubble minimalist ${msg.role === "user" ? "user" : "ai"}`}
           >
-            <div className="chatgpt-bubble-content">
+            {msg.role === "ai" && <AIBotAvatar />}
+            <div className="chatgpt-bubble-content minimalist">
               {msg.content}
               {msg.sql && (
-                <pre className="chatgpt-sql"><b>SQL:</b> {msg.sql}</pre>
+                <pre className="chatgpt-sql minimalist"><b>SQL:</b> {msg.sql}</pre>
               )}
               {msg.code && Array.isArray(msg.code) && (
-                <pre className="chatgpt-code">
+                <pre className="chatgpt-code minimalist">
                   {msg.code.map((item, i) => {
                     const entries = Object.entries(item)
                       .map(([key, value]) => {
@@ -76,21 +90,22 @@ function App() {
           </div>
         ))}
         {loading && (
-          <div className="chatgpt-bubble ai">
-            <div className="chatgpt-bubble-content">
-              <span className="chatgpt-typing">AI is typing<span className="dot">.</span><span className="dot">.</span><span className="dot">.</span></span>
+          <div className="chatgpt-bubble minimalist ai">
+            <AIBotAvatar />
+            <div className="chatgpt-bubble-content minimalist">
+              <span className="chatgpt-typing minimalist">AI is typing<span className="dot">.</span><span className="dot">.</span><span className="dot">.</span></span>
             </div>
           </div>
         )}
         <div ref={chatEndRef} />
       </div>
       <form
-        className="chatgpt-input-bar"
+        className="chatgpt-input-bar minimalist"
         onSubmit={e => { e.preventDefault(); handleAsk(); }}
       >
         <textarea
-          className="chatgpt-input"
-          placeholder="Ask something..."
+          className="chatgpt-input minimalist"
+          placeholder="Send a message."
           value={question}
           onChange={e => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -98,10 +113,15 @@ function App() {
         />
         <button
           type="submit"
-          className="chatgpt-send-btn"
+          className="chatgpt-send-btn minimalist"
           disabled={loading || !question.trim()}
+          aria-label="Send"
         >
-          Send
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="14" fill="#23272f"/>
+            <path d="M9 14L19 14" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M15 10L19 14L15 18" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
         </button>
       </form>
     </div>

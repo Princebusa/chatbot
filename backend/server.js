@@ -32,7 +32,7 @@ app.post("/api/ask", async (req, res) => {
 
     const data = await response.json();
     res.json(data);
-
+console.log(data)
   } catch (error) {
     res.status(500).json({ error: "Server error", details: error.message });
   }

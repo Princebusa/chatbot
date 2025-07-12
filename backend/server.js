@@ -3,11 +3,13 @@ const cors = require("cors");
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require('dotenv').config()
 
+
+const app = express();
+
 app.use(cors({
   origin: "https://chatbot-j02cknwkd-prince1372005s-projects.vercel.app", 
   credentials: true 
 }));
-const app = express();
 // app.use(cors());
 app.use(express.json());
 

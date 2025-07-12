@@ -39,7 +39,7 @@ function App() {
       {response && (
         <pre style={{ background: "#f0f0f0", marginTop: "1rem", padding: "1rem" }}>
           <p>{response?.aiResponse}</p>
-           <p><b>SQL</b>{response.sql}</p>
+           <p><b>{response.sql ? "SQL" : ""}: </b>{response.sql}</p>
           <code>
         
         {code?.map((item) => {

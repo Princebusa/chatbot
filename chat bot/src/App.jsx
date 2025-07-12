@@ -8,7 +8,7 @@ function App() {
 
   const handleAsk = async () => {
     setLoading(true);
-    const res = await fetch("http://localhost:5000/api/ask", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/api/ask`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question })
